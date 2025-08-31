@@ -1,0 +1,108 @@
+/* Color Palettes */
+:root {
+    /* Light Theme Palette */
+    --light-bg-color: #DBC2A6;
+    --light-primary-color: #414A37;
+    --light-text-color: #333;
+    --light-secondary-color: #99744A;
+
+    /* Dark Theme Palette */
+    --dark-bg-color: #333; /* A dark color for the background */
+    --dark-primary-color: #DBC2A6;
+    --dark-text-color: #fff;
+    --dark-secondary-color: #99744A;
+
+    /* Default Theme (Light) */
+    --bg-color: var(--light-bg-color);
+    --primary-color: var(--light-primary-color);
+    --text-color: var(--light-text-color);
+    --secondary-color: var(--light-secondary-color);
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+    transition: background-color 0.5s ease;
+}
+
+/* Main container for the app */
+#app-container {
+    max-width: 800px;
+    padding: 2rem;
+    background-color: transparent; /* Changed to transparent for a floating effect */
+    border-radius: 10px;
+    box-shadow: none; /* Removed the box shadow */
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Onboarding screen specific styles */
+.welcome-screen h1 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.welcome-screen h2 {
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+    font-weight: normal;
+}
+
+.start-button {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-top: 2rem;
+    transition: background-color 0.3s ease;
+}
+
+.start-button:hover {
+    background-color: var(--secondary-color);
+    color: #fff;
+}
+
+/* New Styles for the Modern UI (like the template you provided) */
+.modern-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+.modern-layout .main-content {
+    background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent box for content */
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.modern-layout .sidebar {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Keyframe animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
