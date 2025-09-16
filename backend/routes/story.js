@@ -1,13 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const { GoogleGenAI } = require('@google/genai');
+const { GoogleGenerativeAI } = require('@google/generative-ai');
 const Session = require('../models/Session');
 
+// ✅ Only check the key we actually need
+if (!process.env.GEMINI_API_KEY) {
+  throw new Error("❌ GEMINI_API_KEY not set in .env file.");
+}
+
 // Initialize Gemini AI
-const genAI = new GoogleGenAI(process.env.GEMINI_API_KEY);
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 // POST /api/story/generate
-// Generates a story based on user answers
 router.post('/generate', async (req, res) => {
   const { answers } = req.body;
 
@@ -16,26 +20,23 @@ router.post('/generate', async (req, res) => {
   }
 
   try {
-    // 1. Save the user's answers to a new session in the database.
+    // Save answers
     const newSession = new Session({ answers });
     await newSession.save();
 
-    // 2. Construct the prompt for the generative model.
-    //    This is a crucial step. You need to format the answers into a
-    //    coherent prompt that guides the model to write a story.
+    // Build prompt
     const prompt = `Based on the following feelings and responses, write a short, empathetic, and uplifting story for the user. The user felt: ${answers.join(', ')}.`;
 
-    // 3. Call the generative model to get the story.
-    const model = genAI.getGenerativeModel({ model: "gemini-pro"});
+    // Call Gemini
+    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
     const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const story = response.text();
+    const story = result.response.text();
 
-    // 4. Update the session with the generated story.
+    // Save story
     newSession.story = story;
     await newSession.save();
 
-    // 5. Send the generated story back to the frontend.
+    // Send back
     res.json({ story });
 
   } catch (error) {
@@ -45,3 +46,4 @@ router.post('/generate', async (req, res) => {
 });
 
 module.exports = router;
+
