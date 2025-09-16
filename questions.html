@@ -3,27 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FeelSphere - Your Mood</title>
+    <title>FeelSphere - Find Your Story</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="bg-gray-100 flex flex-col justify-center items-center p-4">
+    <div class="main-container">
+        <div class="content-card">
+            <h2 id="question-title" class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-indigo-600 mb-6">
+                Tell Me About Your World
+            </h2>
+            <p id="question-text" class="text-lg text-gray-700 dark:text-gray-300 mb-8"></p>
+            
+            <div id="options-container" class="space-y-4">
+                </div>
 
-    <main class="page-container questions-page">
-        <h2>How are you feeling right now?</h2>
-        <form id="mood-form">
-            <div class="mood-options">
-                <label><input type="radio" name="mood" value="anxious"> Anxious</label>
-                <label><input type="radio" name="mood" value="stressed"> Stressed</label>
-                <label><input type="radio" name="mood" value="overwhelmed"> Overwhelmed</label>
-                <label><input type="radio" name="mood" value="hopeful"> Hopeful</label>
+            <div id="more-input-container" class="hidden mt-4">
+                <textarea id="more-input" class="w-full p-4 border rounded-lg dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600" placeholder="Share your thoughts..."></textarea>
             </div>
-            
-            <h3>Can you tell us a bit more?</h3>
-            <textarea id="mood-input" placeholder="e.g., Anxious about an exam, or happy after a good conversation..."></textarea>
-            
-            <button type="submit" class="submit-button">Generate Your Story</button>
-        </form>
-    </main>
-    <script src="script.js"></script>
+
+            <button id="next-button" class="start-button mt-8 hidden">Next</button>
+        </div>
+    </div>
+    <script src="scripts.js"></script>
 </body>
 </html>
