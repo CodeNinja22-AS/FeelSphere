@@ -11,6 +11,10 @@ body {
     margin: 0;
     padding: 0;
     background-color: var(--bg-color);
+    /* background-color: #000000;
+     */
+     /* background-color:rgb(246, 189, 246);*/
+
     color: var(--text-color);
     line-height: 1.6;
     display: flex;
@@ -29,21 +33,37 @@ body {
 /* Welcome Page Styles */
 .welcome-page h1 {
     font-size: 3rem;
-    color: var(--primary-color);
+     color: var(--primary-color);
+    
+     /* color :aqua; */
+    text-shadow: 2px 2px  white;
     margin-bottom: 0.5rem;
+}
+.welcome-page h1:hover{
+    color:var(--secondary-color);
+    text-shadow: 2px 3px rgb(45, 41, 41);
 }
 
 .welcome-page p {
     font-style: italic;
-    color: var(--secondary-color);
+     /* color: var(--secondary-color); */
+     color: var(--primary-color);
+     
+     /* color: aqua; */
 }
 
 .start-button {
     background-color: var(--primary-color);
     color: #fff;
+    /* color:white; */
+    /*  */
     padding: 1rem 2rem;
     font-size: 1rem;
-    border: none;
+    /* border: none;
+     */
+     /* border-color: rgb(2, 238, 238); */
+
+     box-shadow:  1.5px 3px 4px white;
     border-radius: 50px;
     cursor: pointer;
     margin-top: 2rem;
@@ -53,19 +73,41 @@ body {
 
 .start-button:hover {
     background-color: var(--secondary-color);
+    /* background-color: var(--primary-color); */
+    color: white ;
+    box-shadow: rgb(45, 41, 41)  3px 4px 4px;
 }
 
 /* Questions Page Styles */
 .questions-page h2 {
     color: var(--primary-color);
-    font-size: 2rem;
+    font-size: 2.5rem;
+
+     text-shadow: 1.5px 2px  white;
+     /* text-shadow:2px 3px 5px var(--secondary-color); */
+
+}
+.questions-page h2:hover{
+ color:var(--secondary-color);
+    text-shadow: 2px 3px rgb(45, 41, 41);
 }
 
+
+
+
+.questions-page h3{
+    text-shadow: white  0.5px 1px 1px ;
+}
 #mood-form {
-    background-color: #fff;
+    /* background-color: #fff; */
+    background-color: none;
     padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 15px;
+    /* box-shadow: 0 4px 8px rgba(0,0,0,0.1); */
+    box-shadow:   2px 4px 8px var(--secondary-color);
+}
+#mood-form:hover{
+    box-shadow:   5px 9px 20px var(--primary-color);
 }
 
 .mood-options {
@@ -74,6 +116,7 @@ body {
     justify-content: center;
     gap: 1rem;
     margin-bottom: 2rem;
+
 }
 
 .mood-options label {
@@ -82,11 +125,19 @@ body {
     border-radius: 50px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    box-shadow: 2px 2px var(--secondary-color);
+    color: white;
+    background-color: var(--primary-color);
 }
+
+
+
 
 .mood-options label:hover {
     background-color: var(--secondary-color);
     color: #fff;
+
+    box-shadow: 3px 4px 5px var(--primary-color);
 }
 
 .mood-options input[type="radio"] {
@@ -101,7 +152,12 @@ body {
     border: 1px solid var(--secondary-color);
     border-radius: 8px;
     resize: vertical;
+    background-color: var(- --secondary-color);
+     border-color: var(--secondary-color);
+    box-shadow: var(--secondary-color) 1.5px 1.5px 3px ;
+    color:rgba(65, 22, 255, 0.018);
 }
+
 
 .submit-button {
     background-color: var(--primary-color);
@@ -113,10 +169,12 @@ body {
     cursor: pointer;
     margin-top: 1rem;
     transition: background-color 0.3s ease;
+    box-shadow: white  2px 3px 4px;
 }
 
 .submit-button:hover {
     background-color: var(--secondary-color);
+    box-shadow: 4px 5px 6px var(--primary-color);
 }
 
 /* Story Page Styles */
@@ -124,9 +182,13 @@ body {
     background-color: #fff;
     padding: 2rem;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 2px 4px 8px rgb(81, 79, 79);
     text-align: left;
 }
+
+ .story-content-box:hover{
+    box-shadow: #414A37  3px 6px 25px ;
+ }
 
 #story-choices-container {
     margin-top: 2rem;
