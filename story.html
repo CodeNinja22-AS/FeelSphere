@@ -17,5 +17,69 @@
         </div>
     </main>
     
+    </main>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const storyTitle = document.getElementById('story-title');
+            const storyText = document.getElementById('story-text');
+            const storyChoicesContainer = document.getElementById('story-choices-container');
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const sessionId = urlParams.get('sessionId');
+            const theme = urlParams.get('theme');
+
+            // Apply theme from URL
+            if (theme === 'dark') {
+                document.body.classList.add('dark-theme');
+            } else {
+                document.body.classList.add('light-theme');
+            }
+
+            if (!sessionId) {
+                storyTitle.textContent = 'Error';
+                storyText.textContent = 'No session ID provided. Please start again.';
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/story/generate-story?sessionId=${sessionId}`);
+                
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'Failed to generate story.');
+                }
+
+                const data = await response.json();
+
+                storyTitle.textContent = data.title;
+                storyText.innerHTML = data.story.replace(/\n/g, '<br><br>'); // Display paragraphs
+
+                // Display image prompts as placeholders
+                if (data.imagePrompts && data.imagePrompts.length > 0) {
+                    const imageContainer = document.createElement('div');
+                    imageContainer.className = 'story-images';
+                    
+                    const imageTitle = document.createElement('h3');
+                    imageTitle.textContent = 'Story Image Ideas';
+                    imageTitle.className = 'text-xl font-bold mt-8 mb-4';
+                    storyChoicesContainer.appendChild(imageTitle);
+
+                    data.imagePrompts.forEach(prompt => {
+                        const p = document.createElement('p');
+                        p.className = 'image-prompt';
+                        p.textContent = `🎨 ${prompt}`;
+                        imageContainer.appendChild(p);
+                    });
+                    storyChoicesContainer.appendChild(imageContainer);
+                }
+
+            } catch (error) {
+                console.error('Error fetching story:', error);
+                storyTitle.textContent = 'An Error Occurred';
+                storyText.textContent = 'Could not generate your story at this time. Please try again later.';
+            }
+        });
+    </script>
 </body>
 </html>

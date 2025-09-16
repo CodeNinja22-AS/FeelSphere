@@ -3,13 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FeelSphere - Your Mood</title>
+    <title>FeelSphere - Find Your Story</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <main class="page-container questions-page">
-        <h2>How are you feeling right now ...?</h2>
+        <h2>How are you feeling right now?</h2>
         <form id="mood-form">
             <div class="mood-options">
                 <label><input type="radio" name="mood" value="anxious"> Anxious</label>
@@ -18,7 +22,7 @@
                 <label><input type="radio" name="mood" value="hopeful"> Hopeful</label>
             </div>
             
-            <h3>Can you tell us a bit more ..?</h3>
+            <h3>Can you tell us a bit more?</h3>
             <textarea id="mood-input" placeholder="e.g., Anxious about an exam, or happy after a good conversation..."></textarea>
             
             <button type="submit" class="submit-button">Generate Your Story</button>
