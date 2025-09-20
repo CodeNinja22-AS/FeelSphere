@@ -52,42 +52,213 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    // Only run this part on index.html
     if (document.getElementById('quote-text')) {
         setQuote();
     }
 
-
     // --- Part 3: Akinator-style Question Logic (for questions.html) ---
-    const questions = [
-        // Phase 1: Emotional & Physical State (Interoception & Affect)
-        { id: 'q1', text: 'How would you describe your physical energy level right now?', options: [{ text: 'Heavy and sluggish', value: 'low-energy' }, { text: 'Restless and tense', value: 'high-energy' }, { text: 'Calm and steady', value: 'steady-energy' }, { text: 'Drained and empty', value: 'empty-energy' }] },
-        { id: 'q2', text: 'When you think about the last 24 hours, what feeling stands out the most?', options: [{ text: 'Irritation or anger', value: 'anger' }, { text: 'Sadness or disappointment', value: 'sadness' }, { text: 'Anxiety or fear', value: 'fear' }, { text: 'Boredom or apathy', value: 'boredom' }] },
-        { id: 'q3', text: 'Does this feeling have a physical sensation? Where do you feel it?', options: [{ text: 'In my head or chest', value: 'head-chest' }, { text: 'In my stomach or gut', value: 'stomach-gut' }, { text: 'In my shoulders and back', value: 'shoulders-back' }, { text: 'Nowhere in particular', value: 'no-sensation' }] },
-        { id: 'q4', text: 'Which metaphor best describes your current state of mind?', options: [{ text: 'A crowded room with a lot of noise', value: 'crowded-mind' }, { text: 'A still lake on a cloudy day', value: 'still-mind' }, { text: 'A road with a lot of twists and turns', value: 'twisting-road' }, { text: 'A house with a few too many empty rooms', value: 'empty-house' }] },
-        { id: 'q5', text: 'When you consider your day, which of these is most true?', options: [{ text: 'I felt overwhelmed by the pace of things.', value: 'overwhelmed' }, { text: 'I felt disconnected from people around me.', value: 'disconnected' }, { text: 'I felt trapped by a particular situation.', value: 'trapped' }, { text: 'I felt calm, but without much purpose.', value: 'no-purpose' }] },
-        
-        // Phase 2: Social & Relational Dynamics (Games & Affect Heuristic)
-        { id: 'q6', text: 'How do you typically react when a problem arises with another person?', options: [{ text: 'I blame them for the problem.', value: 'blame-them' }, { text: 'I feel I should have known better.', value: 'self-blame' }, { text: 'I withdraw and avoid the conflict.', value: 'avoid-conflict' }, { text: 'I try to find a solution together.', value: 'solve-together' }] },
-        { id: 'q7', text: 'Do you feel you often play a role for other people?', options: [{ text: 'Yes, I feel I have to be strong for them.', value: 'strong-role' }, { text: 'Yes, I feel I have to be the funny one.', value: 'funny-role' }, { text: 'No, I feel I am myself most of the time.', value: 'authentic' }, { text: 'I am not sure what role I play.', value: 'unclear-role' }] },
-        { id: 'q8', text: 'Have you recently felt a need to "prove yourself" to someone?', options: [{ text: 'Yes, I feel I am always on trial.', value: 'on-trial' }, { text: 'Yes, but it was for a specific, important goal.', value: 'specific-goal' }, { text: 'No, not recently.', value: 'not-recently' }, { text: 'I am not sure why I do this, but I do.', value: 'unconscious-prove' }] },
-        { id: 'q9', text: 'When you are praised, what is your first thought?', options: [{ text: 'I wonder what they really want from me.', value: 'suspicious' }, { text: 'I feel proud and motivated.', value: 'proud' }, { text: 'I feel a bit uncomfortable with the attention.', value: 'uncomfortable' }, { text: 'I think about the things I could have done better.', value: 'self-critical' }] },
-        { id: 'q10', text: 'Do you ever find yourself telling stories that cast you as a victim?', options: [{ text: 'Yes, I feel people should understand my struggles.', value: 'victim-narrative' }, { text: 'No, I prefer to focus on solutions.', value: 'solution-focused' }, { text: 'I am not sure, it just happens sometimes.', value: 'unaware-victim' }, { text: 'I try my best to avoid it.', value: 'avoid-victim' }] },
+    // --- Part 3: Akinator-style Question Logic (for questions.html) ---
+const questions = [
+  {
+    id: 'q1',
+    text: 'How would you describe your physical energy level right now?',
+    options: [
+      { text: 'Heavy and sluggish', value: 'low-energy' },
+      { text: 'Restless and tense', value: 'high-energy' },
+      { text: 'Calm and steady', value: 'steady-energy' },
+      { text: 'Drained and empty', value: 'empty-energy' }
+    ]
+  },
+  {
+    id: 'q2',
+    text: 'When you think about the last 24 hours, what feeling stands out the most?',
+    options: [
+      { text: 'Irritation or anger', value: 'anger' },
+      { text: 'Sadness or disappointment', value: 'sadness' },
+      { text: 'Anxiety or fear', value: 'fear' },
+      { text: 'Boredom or apathy', value: 'boredom' }
+    ]
+  },
+  {
+    id: 'q3',
+    text: 'Does this feeling have a physical sensation? Where do you feel it?',
+    options: [
+      { text: 'In my head or chest', value: 'head-chest' },
+      { text: 'In my stomach or gut', value: 'stomach-gut' },
+      { text: 'In my shoulders and back', value: 'shoulders-back' },
+      { text: 'Nowhere in particular', value: 'no-sensation' }
+    ]
+  },
+  {
+    id: 'q4',
+    text: 'What thought has been looping in your mind the most today?',
+    options: [
+      { text: 'Something about the past', value: 'past-thought' },
+      { text: 'Something about the future', value: 'future-thought' },
+      { text: 'Something about myself', value: 'self-thought' },
+      { text: 'Random or scattered thoughts', value: 'random-thought' }
+    ]
+  },
+  {
+    id: 'q5',
+    text: 'If your mood had a color right now, what would it be?',
+    options: [
+      { text: 'Red (tense/angry)', value: 'red' },
+      { text: 'Blue (sad/calm)', value: 'blue' },
+      { text: 'Yellow (hopeful/anxious)', value: 'yellow' },
+      { text: 'Grey (dull/empty)', value: 'grey' }
+    ]
+  },
+  {
+    id: 'q6',
+    text: 'How connected do you feel to the people around you today?',
+    options: [
+      { text: 'Very connected and supported', value: 'connected' },
+      { text: 'Somewhat connected', value: 'somewhat-connected' },
+      { text: 'Disconnected or isolated', value: 'isolated' },
+      { text: 'Actively avoiding people', value: 'avoiding' }
+    ]
+  },
+  {
+    id: 'q7',
+    text: 'If your feeling had a weather type, what would it be?',
+    options: [
+      { text: 'Stormy', value: 'stormy' },
+      { text: 'Rainy', value: 'rainy' },
+      { text: 'Sunny', value: 'sunny' },
+      { text: 'Cloudy or foggy', value: 'cloudy' }
+    ]
+  },
+  {
+    id: 'q8',
+    text: 'What’s your body posture like right now?',
+    options: [
+      { text: 'Tense and tight', value: 'tense-posture' },
+      { text: 'Relaxed and open', value: 'relaxed-posture' },
+      { text: 'Collapsed or slouched', value: 'collapsed-posture' },
+      { text: 'Restless or fidgety', value: 'restless-posture' }
+    ]
+  },
+  {
+    id: 'q9',
+    text: 'What’s been hardest for you to manage today?',
+    options: [
+      { text: 'My emotions', value: 'hard-emotions' },
+      { text: 'My thoughts', value: 'hard-thoughts' },
+      { text: 'My body/energy', value: 'hard-body' },
+      { text: 'Nothing in particular', value: 'nothing-hard' }
+    ]
+  },
+  {
+    id: 'q10',
+    text: 'Which metaphor best matches how you feel?',
+    options: [
+      { text: 'Like a balloon ready to pop', value: 'balloon' },
+      { text: 'Like a heavy stone sinking', value: 'stone' },
+      { text: 'Like a shaky bridge', value: 'bridge' },
+      { text: 'Like an empty container', value: 'empty-container' }
+    ]
+  },
+  {
+    id: 'q11',
+    text: 'If you could change one thing about this moment, what would it be?',
+    options: [
+      { text: 'My environment', value: 'environment' },
+      { text: 'My relationships', value: 'relationships' },
+      { text: 'My physical state', value: 'physical' },
+      { text: 'My thoughts/emotions', value: 'mental' }
+    ]
+  },
+  {
+    id: 'q12',
+    text: 'How safe do you feel in your body right now?',
+    options: [
+      { text: 'Very safe and grounded', value: 'safe' },
+      { text: 'Somewhat uneasy', value: 'uneasy' },
+      { text: 'On edge and unsafe', value: 'unsafe' },
+      { text: 'Completely disconnected', value: 'disconnected' }
+    ]
+  },
+  {
+    id: 'q13',
+    text: 'Which need feels most urgent to you right now?',
+    options: [
+      { text: 'Rest or relaxation', value: 'rest' },
+      { text: 'Connection or comfort', value: 'connection' },
+      { text: 'Clarity or understanding', value: 'clarity' },
+      { text: 'Distraction or escape', value: 'escape' }
+    ]
+  },
+  {
+    id: 'q14',
+    text: 'If your feeling could speak, what would it say?',
+    options: [
+      { text: '“Leave me alone”', value: 'leave-alone' },
+      { text: '“Please help me”', value: 'help-me' },
+      { text: '“I can’t handle this”', value: 'cant-handle' },
+      { text: '“I just need space”', value: 'need-space' }
+    ]
+  },
+  {
+    id: 'q15',
+    text: 'How much control do you feel you have over this feeling?',
+    options: [
+      { text: 'A lot of control', value: 'control-high' },
+      { text: 'Some control', value: 'control-medium' },
+      { text: 'Little control', value: 'control-low' },
+      { text: 'No control at all', value: 'control-none' }
+    ]
+  },
+  {
+    id: 'q16',
+    text: 'What do you usually do when this feeling shows up?',
+    options: [
+      { text: 'Talk to someone', value: 'coping-talk' },
+      { text: 'Distract myself', value: 'coping-distract' },
+      { text: 'Suppress or ignore it', value: 'coping-ignore' },
+      { text: 'Try to understand it', value: 'coping-reflect' }
+    ]
+  },
+  {
+    id: 'q17',
+    text: 'How long do you think this feeling will last?',
+    options: [
+      { text: 'Just a few minutes', value: 'short' },
+      { text: 'A few hours', value: 'medium' },
+      { text: 'The whole day', value: 'long' },
+      { text: 'I don’t know', value: 'uncertain' }
+    ]
+  },
+  {
+    id: 'q18',
+    text: 'Does this feeling remind you of a past experience?',
+    options: [
+      { text: 'Yes, strongly', value: 'past-strong' },
+      { text: 'Yes, a little', value: 'past-weak' },
+      { text: 'Not really', value: 'past-none' },
+      { text: 'I’m not sure', value: 'past-uncertain' }
+    ]
+  },
+  {
+    id: 'q19',
+    text: 'If you had to give your current state a title, what would it be?',
+    options: [
+      { text: '“The Battle Inside”', value: 'title-battle' },
+      { text: '“Waves of Sadness”', value: 'title-sadness' },
+      { text: '“Running in Circles”', value: 'title-anxiety' },
+      { text: '“The Empty Space”', value: 'title-empty' }
+    ]
+  },
+  {
+    id: 'q20',
+    text: 'Is there anything else you want to say or share?',
+    options: [
+      { text: 'No, that’s all for now.', value: 'done' }
+    ],
+    is_open_ended: true
+  }
+];
 
-        // Phase 3: Cognitive & Narrative Bias (System 1/System 2)
-        { id: 'q11', text: 'When making a choice, do you rely more on your gut feeling or a careful analysis?', options: [{ text: 'My gut feeling, it’s usually right.', value: 'gut-feeling' }, { text: 'A careful analysis of pros and cons.', value: 'analysis' }, { text: 'A mix of both, depending on the situation.', value: 'mixed-approach' }, { text: 'I get stuck and can’t decide.', value: 'stuck-decision' }] },
-        { id: 'q12', text: 'How do you handle an unexpected event that disrupts your plans?', options: [{ text: 'I feel a strong sense of panic and lose control.', value: 'panic-response' }, { text: 'I take a deep breath and try to adapt.', value: 'calm-adaptation' }, { text: 'I get angry and frustrated at the interruption.', value: 'anger-frustration' }, { text: 'I accept it as a challenge to be overcome.', value: 'challenge' }] },
-        { id: 'q13', text: 'Do you find yourself replaying negative past conversations in your head?', options: [{ text: 'Yes, all the time.', value: 'replaying-yes' }, { text: 'Sometimes, but I can stop it.', value: 'replaying-sometimes' }, { text: 'Rarely or never.', value: 'replaying-never' }, { text: 'I wish I could stop, but it feels out of my control.', value: 'replaying-uncontrolled' }] },
-        { id: 'q14', text: 'Which of these statements about success do you believe more?', options: [{ text: 'Success is mostly about luck.', value: 'luck-driven' }, { text: 'Success is entirely about hard work and skill.', value: 'skill-driven' }, { text: 'It\'s a mix of both, but hard work matters more.', value: 'mixed-driven' }, { text: 'I am not sure.', value: 'uncertain-driven' }] },
-        { id: 'q15', text: 'Do you feel you have a clear plan for your future?', options: [{ text: 'Yes, I have a detailed plan.', value: 'detailed-plan' }, { text: 'I have some ideas, but they are not concrete.', value: 'vague-plan' }, { text: 'No, I feel lost and uncertain.', value: 'lost-plan' }, { text: 'I had a plan, but it fell apart.', value: 'plan-failed' }] },
-        
-        // Phase 4: Core Values & Identity (Conscience & Connection)
-        { id: 'q16', text: 'What is more important to you: being loved or being respected?', options: [{ text: 'Being loved by people close to me.', value: 'loved' }, { text: 'Being respected for my work and choices.', value: 'respected' }, { text: 'A balance of both is needed.', value: 'balance' }, { text: 'Neither, I just want to feel content.', value: 'content' }] },
-        { id: 'q17', text: 'Do you ever feel a sense of obligation to help others, even when it\'s inconvenient?', options: [{ text: 'Yes, almost all the time.', value: 'high-obligation' }, { text: 'Only if I feel a personal connection to them.', value: 'personal-connection' }, { text: 'Rarely, I prioritize my own needs.', value: 'low-obligation' }, { text: 'I feel this, but I\'m often too drained to act.', value: 'drained' }] },
-        { id: 'q18', text: 'Have you recently found joy in a simple, unplanned interaction with someone?', options: [{ text: 'Yes, these moments are very meaningful to me.', value: 'meaningful-joy' }, { text: 'No, most of my interactions feel transactional.', value: 'transactional' }, { text: 'I am not sure. I don\'t pay attention to it.', value: 'inattentive' }, { text: 'I feel I have to plan for joy.', value: 'plan-joy' }] },
-        { id: 'q19', text: 'Which of these is the most significant struggle for you right now?', options: [{ text: 'Feeling like my voice is not heard.', value: 'not-heard' }, { text: 'Feeling like my life lacks purpose.', value: 'no-purpose' }, { text: 'Feeling disconnected from my own feelings.', value: 'disconnected-feelings' }, { text: 'Feeling like I am constantly being judged.', value: 'judged' }] },
-        { id: 'q20', text: 'Is there anything else you want to say or share?', options: [{ text: 'No, that’s all for now.', value: 'done' }], is_open_ended: true },
-    ];
 
     let currentQuestionIndex = 0;
     let userResponses = {};
@@ -101,10 +272,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const moreInputContainer = document.getElementById('more-input-container');
     const moreInput = document.getElementById('more-input');
     
-    // Only run the question logic on the questions.html page
     if (questionTitle && questionText && optionsContainer) {
         
-        async function showQuestion() {
+        function showQuestion() {
             const currentQuestion = questions[currentQuestionIndex];
             questionTitle.textContent = `Question ${currentQuestionIndex + 1}:`;
             questionText.textContent = currentQuestion.text;
@@ -138,20 +308,23 @@ document.addEventListener('DOMContentLoaded', () => {
         if (nextButton) {
             nextButton.addEventListener('click', async () => {
                 const currentQuestion = questions[currentQuestionIndex];
-                
                 let answer = currentQuestion.is_open_ended ? moreInput.value : userResponses[currentQuestion.id];
-                
-                await fetch('http://localhost:5000/api/story/save-answer', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        sessionId,
-                        questionId: currentQuestion.id,
-                        answer: answer
-                    })
-                });
+
+                // Ensure answer is provided
+                if (answer === undefined || answer.trim() === '') {
+                    alert("Please select an option or enter a response before continuing.");
+                    return;
+                }
+
+                try {
+                    await fetch('http://localhost:5000/api/story/save-answer', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ sessionId, questionId: currentQuestion.id, answer })
+                    });
+                } catch (err) {
+                    console.warn("Server not available, skipping save:", err);
+                }
 
                 currentQuestionIndex++;
                 if (currentQuestionIndex < questions.length) {
@@ -161,7 +334,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     window.location.href = `story.html?sessionId=${sessionId}&theme=${theme}`;
                 }
             });
-            showQuestion();
         }
+
+        showQuestion();
     }
 });

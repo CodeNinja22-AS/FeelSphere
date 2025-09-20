@@ -4,82 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FeelSphere - Your Story</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="bg-gray-100 flex flex-col justify-center items-center p-4">
+    <div class="main-container">
+        <div class="content-card">
+            <h2 id="story-title" class="text-3xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-indigo-600 mb-6">
+                A Story for You
+            </h2>
 
-    <main class="page-container story-page">
-        <div class="story-content-box">
-            <h2 id="story-title">Your Story Awaits...</h2>
-            <p id="story-text">Based on your mood, a story is being crafted just for you. Please wait a moment.</p>
-            <div id="story-choices-container">
+            <div id="loading-spinner" class="flex flex-col items-center justify-center p-8">
+                <svg class="animate-spin -ml-1 mr-3 h-10 w-10 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <p class="mt-4 text-xl text-gray-600 dark:text-gray-400">Crafting your story...</p>
+            </div>
+
+            <div id="story-display" class="hidden">
+                <div class="story-image-container mb-6 rounded-lg overflow-hidden">
+                    <img id="story-image" src="" alt="A generated image to accompany your story" class="w-full h-auto object-cover">
                 </div>
+                <div id="story-text" class="text-lg leading-relaxed text-gray-700 dark:text-gray-300"></div>
+            </div>
+
+            <button id="home-button" class="start-button mt-8 hidden" onclick="window.location.href='index.html'">
+                Start a New Journey
+            </button>
         </div>
-    </main>
-    
-    </main>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            const storyTitle = document.getElementById('story-title');
-            const storyText = document.getElementById('story-text');
-            const storyChoicesContainer = document.getElementById('story-choices-container');
-
-            const urlParams = new URLSearchParams(window.location.search);
-            const sessionId = urlParams.get('sessionId');
-            const theme = urlParams.get('theme');
-
-            // Apply theme from URL
-            if (theme === 'dark') {
-                document.body.classList.add('dark-theme');
-            } else {
-                document.body.classList.add('light-theme');
-            }
-
-            if (!sessionId) {
-                storyTitle.textContent = 'Error';
-                storyText.textContent = 'No session ID provided. Please start again.';
-                return;
-            }
-
-            try {
-                const response = await fetch(`/api/story/generate-story?sessionId=${sessionId}`);
-                
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.message || 'Failed to generate story.');
-                }
-
-                const data = await response.json();
-
-                storyTitle.textContent = data.title;
-                storyText.innerHTML = data.story.replace(/\n/g, '<br><br>'); // Display paragraphs
-
-                // Display image prompts as placeholders
-                if (data.imagePrompts && data.imagePrompts.length > 0) {
-                    const imageContainer = document.createElement('div');
-                    imageContainer.className = 'story-images';
-                    
-                    const imageTitle = document.createElement('h3');
-                    imageTitle.textContent = 'Story Image Ideas';
-                    imageTitle.className = 'text-xl font-bold mt-8 mb-4';
-                    storyChoicesContainer.appendChild(imageTitle);
-
-                    data.imagePrompts.forEach(prompt => {
-                        const p = document.createElement('p');
-                        p.className = 'image-prompt';
-                        p.textContent = `🎨 ${prompt}`;
-                        imageContainer.appendChild(p);
-                    });
-                    storyChoicesContainer.appendChild(imageContainer);
-                }
-
-            } catch (error) {
-                console.error('Error fetching story:', error);
-                storyTitle.textContent = 'An Error Occurred';
-                storyText.textContent = 'Could not generate your story at this time. Please try again later.';
-            }
-        });
-    </script>
+    </div>
+    <script src="scripts.js"></script>
 </body>
 </html>
