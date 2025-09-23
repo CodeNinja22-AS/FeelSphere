@@ -1,25 +1,4 @@
-/* Color Palette & Basic Styles */
-:root {
-    --bg-color: #DBC2A6;
-    --primary-color: #414A37;
-    --secondary-color: #99744A;
-    --text-color: #333;
-}
 
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    line-height: 1.6;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    text-align: center;
-    transition: background-color 0.5s ease;
-}
 
 .page-container {
     max-width: 800px;
@@ -72,9 +51,7 @@ body {
     background-color: var( --secondary-color);
     box-shadow: 2px 4px 8px var( --primary-color);
 }
-.bg-gray-100{
-    background-color: var(--bg-color);
-}
+
 .content-card{
     background-color:var(--bg-color) ;
     box-shadow:   2px 4px 8px var(--secondary-color);
